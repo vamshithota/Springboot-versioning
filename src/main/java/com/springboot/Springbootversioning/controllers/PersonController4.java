@@ -13,7 +13,7 @@ public class PersonController4 {
      * Custom Header Versioning Controller class
      * */
 
-    @GetMapping(value = "/getPerson", headers = "X-API-VERSION=1")
+    @GetMapping(value = "/getPerson", headers = "X-API-VERSION=1", produces = "application/xml")
     public PersonCurrent getPerson() {
         return new PersonCurrent();
     }
@@ -22,4 +22,5 @@ public class PersonController4 {
     public PersonOld getPerson2() {
         return new PersonOld();
     }
-}
+
+  }
