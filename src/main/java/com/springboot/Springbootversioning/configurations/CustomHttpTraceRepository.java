@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomHttpTraceRepository extends InMemoryHttpTraceRepository {
-    // This class is nbot being used anywhere as of now
+    // This class is not being used anywhere as of now
     public List<CustomHttpTraceDto> getCustomHttpTraces() {
         List<HttpTrace> traces = super.findAll();
 

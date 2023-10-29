@@ -29,7 +29,13 @@ public class CategoryService {
         return categoryRepository.save(categoryEntity);
     }
     @CacheEvict(value = "category", key = "#id")
-    public void deleteEmployee(Long id){
-        categoryRepository.deleteById(id);
+    public void deleteCategory(Long id){
+        try{
+            categoryRepository.deleteById(id);
+        }catch(Exception ex){
+            System.out.println("Exception occurred while deleting record with id  " + id);
+            throw ex;
+        }
+
     }
 }
