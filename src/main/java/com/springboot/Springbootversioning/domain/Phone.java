@@ -1,19 +1,15 @@
 package com.springboot.Springbootversioning.domain;
 
 import com.springboot.Springbootversioning.validators.ContactNumberConstraint;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class Phone {
 
     @ContactNumberConstraint
     private String phoneNumber;
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     @Override
     public String toString() {
@@ -21,6 +17,5 @@ public class Phone {
                 "phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
-
 
 }

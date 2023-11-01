@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
-    Logger logger = LoggerFactory.getLogger(CategoryController.class);
+    private Logger logger = LoggerFactory.getLogger(CategoryController.class);
     @GetMapping("/cats")
     public List<CategoryEntity> getCategories() {
         return categoryService.getCategories();
