@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/actor")
 public class ActorController {
@@ -20,5 +22,10 @@ public class ActorController {
         ActorEntity data =   actorService.getActorData(id);
         ActorDTO actorDTO = new ActorDTO(data.getId(), data.getFirst_name(), data.getLast_name(), data.getLast_update());
         return  actorDTO;
+    }
+
+    @GetMapping("/getActors")
+    public List<ActorEntity> getActors(){
+        return  actorService.getActors();
     }
 }
