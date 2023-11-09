@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class ExecutionTimeTrackerAdice {
+public class ExecutionTimeTrackerAdvice {
 
-    Logger logger = LoggerFactory.getLogger(ExecutionTimeTrackerAdice.class);
+    Logger logger = LoggerFactory.getLogger(ExecutionTimeTrackerAdvice.class);
 
     @Around("@annotation(com.springboot.Springbootversioning.aspect.TrackExecutionTime)")
     public Object trackTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {

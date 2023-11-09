@@ -12,6 +12,7 @@ import java.util.Date;
 @Component
 public class LoggerAspect {
 
+    // point cut expression to match a method with 0 or more arguments of any type (..)
     @Before(value="execution(* com.springboot.Springbootversioning.controllers.CategoryController.*(..))")
     public void beforeAdvice(JoinPoint joinPoint){
         System.out.println("Logging Request for method "+ joinPoint.getSignature() + " started at " + new Date());
