@@ -53,6 +53,12 @@ public class LoggerAspect {
         }
     }
 
+    @AfterThrowing(pointcut = "execution(* com.springboot.Springbootversioning.repositoryImpl.AccountDAOImpl.findAccounts(..))",
+            throwing = "exceptionRaised")
+    public void afterThrowingFindAccountAdvice(JoinPoint joinPoint, Exception exceptionRaised){
+        System.out.println("@AfterThrowing Method being executed is " + joinPoint.getSignature().toShortString());
+        System.out.println("**** " + exceptionRaised);
+    }
 
 
 }

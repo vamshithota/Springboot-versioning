@@ -48,12 +48,21 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public List<Account> findAccounts() {
+        return findAccounts(false);
+    }
 
+    @Override
+    public List<Account> findAccounts(boolean tripWire) {
+        // stimulate an exception for @AfterThrowing to work
+        if(tripWire){
+            throw new RuntimeException("Exception thrown from findAccounts");
+        }
         List<Account> accounts =  new ArrayList<>();
         accounts.add(new Account("Vamshi", "Platinum"));
         accounts.add(new Account("Madhu", "Silver"));
         accounts.add(new Account("Luca", "Gold"));
         logger.info("Records returning are " + accounts);
         return accounts;
+
     }
 }
