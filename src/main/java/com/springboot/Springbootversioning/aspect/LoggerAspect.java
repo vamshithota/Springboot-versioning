@@ -3,6 +3,7 @@ package com.springboot.Springbootversioning.aspect;
 import com.springboot.Springbootversioning.domain.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Aspect
 @Component
+@Order(1)
 public class LoggerAspect {
 
     // declaring re usable point cut expression
