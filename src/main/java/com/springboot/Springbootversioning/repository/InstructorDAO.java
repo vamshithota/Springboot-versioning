@@ -1,7 +1,10 @@
 package com.springboot.Springbootversioning.repository;
 
+import com.springboot.Springbootversioning.entities.Course;
 import com.springboot.Springbootversioning.entities.InstructorDetail;
 import com.springboot.Springbootversioning.entities.InstructorEntity;
+
+import java.util.List;
 
 public interface InstructorDAO {
 
@@ -14,4 +17,8 @@ public interface InstructorDAO {
     InstructorDetail findInstructorDetailById(int theId);
 
     void deleteInstructorDetailById(int theId);
+
+    List<Course> findCourseByInstructorId(int id);
+
+
 }

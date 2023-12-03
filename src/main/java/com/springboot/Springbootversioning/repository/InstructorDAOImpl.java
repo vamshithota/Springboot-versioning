@@ -1,5 +1,6 @@
 package com.springboot.Springbootversioning.repository;
 
+import com.springboot.Springbootversioning.entities.Course;
 import com.springboot.Springbootversioning.entities.InstructorDetail;
 import com.springboot.Springbootversioning.entities.InstructorEntity;
 import org.slf4j.Logger;
@@ -8,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public class InstructorDAOImpl implements InstructorDAO {
     Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
+
     EntityManager entityManager;
 
     // creating constructor injection
@@ -66,6 +70,14 @@ public class InstructorDAOImpl implements InstructorDAO {
             logger.error(ex.getMessage());
             throw ex;
         }
-
+    }
+    @Override
+    @Transactional
+    public List<Course> findCourseByInstructorId(int id) {
+        // find course by instructor id
+        TypedQuery<Course> query = entityManager.createQuery("SELECT c FROM Course c WHERE c.instructor.id = :instructorId", Course.class);
+        query.setParameter("instructorId", id);
+        List<Course> resultSet = query.getResultList();
+        return resultSet;
     }
 }

@@ -1,13 +1,17 @@
 package com.springboot.Springbootversioning.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Instructor")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class InstructorEntity {
 
     @Id
@@ -29,6 +33,13 @@ public class InstructorEntity {
    @JsonManagedReference
    private InstructorDetail instructorDetail;
 
+   // One instructor may contain multiple courses
+    @OneToMany(mappedBy = "instructor",
+               fetch = FetchType.LAZY,
+               cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                       CascadeType.DETACH, CascadeType.REFRESH})
+   // @Basic(fetch = FetchType.LAZY)
+    List<Course> courses;
     public InstructorEntity(){}
     public InstructorEntity(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -77,5 +88,21 @@ public class InstructorEntity {
                 ", email='" + email + '\'' +
                 ", instructorDetail=" + instructorDetail +
                 '}';
+    }
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+    // add convenience methods for bi-directional relationship
+
+    public void add(Course tempCourse) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(tempCourse);
+        tempCourse.setInstructor(this);
     }
 }
