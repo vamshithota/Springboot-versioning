@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -41,6 +42,11 @@ public class InstructorDAOImpl implements InstructorDAO {
     public void deleteInstructorById(int theId) {
         try{
             InstructorEntity entity = entityManager.find(InstructorEntity.class, theId);
+            List<Course> courses = entity.getCourses();
+            //break the association between course and instructor as Primary key is associated
+            for(Course course: courses){
+                course.setInstructor(null);
+            }
             entityManager.remove(entity);
         }catch(Exception ex){
             ex.printStackTrace();
@@ -79,5 +85,42 @@ public class InstructorDAOImpl implements InstructorDAO {
         query.setParameter("instructorId", id);
         List<Course> resultSet = query.getResultList();
         return resultSet;
+    }
+
+    @Override
+    public InstructorEntity findInstructorByIdJoinFetch(int id) {
+        TypedQuery<InstructorEntity> query = entityManager.createQuery(
+                "select i from InstructorEntity i "
+                        + "JOIN FETCH i.courses "
+                        + "JOIN FETCH i.instructorDetail "
+                        + "where i.id = :data", InstructorEntity.class);
+        query.setParameter("data", id);
+        InstructorEntity result = query.getSingleResult();
+        return result;
+    }
+    @Override
+    @Transactional
+    public void update(InstructorEntity instructor) {
+        entityManager.merge(instructor);
+        logger.info("updated instructor " + instructor);
+    }
+
+    @Override
+    public Course findCourseById(int id) {
+        return entityManager.find( Course.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void updateCourse(Course course) {
+        entityManager.merge(course);
+        logger.info("updated instructor " + course);
+    }
+
+    @Override
+    @Transactional
+    public void save(Course tempCourse) {
+        entityManager.persist(tempCourse);
+        logger.info("Saved Course Entity to DB " +  tempCourse);
     }
 }

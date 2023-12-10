@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface InstructorEntityRepository extends JpaRepository<InstructorEntity,Integer> {
+public interface InstructorEntityJPARepository extends JpaRepository<InstructorEntity,Integer> {
     @Query("SELECT c FROM Course c WHERE c.instructor.id = :instructorId")
     List<Course> findCoursesByInstructorId(@Param("instructorId") Integer instructorId);
 }

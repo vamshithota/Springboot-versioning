@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Instructor")
+@Table(name = "instructor")
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class InstructorEntity {
 
@@ -38,7 +38,7 @@ public class InstructorEntity {
                fetch = FetchType.LAZY,
                cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                        CascadeType.DETACH, CascadeType.REFRESH})
-   // @Basic(fetch = FetchType.LAZY)
+    @Basic(fetch = FetchType.LAZY)
     List<Course> courses;
     public InstructorEntity(){}
     public InstructorEntity(String firstName, String lastName, String email) {
